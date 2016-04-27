@@ -25,7 +25,7 @@ module Rack
       if can_serve
         env["PATH_INFO"] = @urls[path] if @urls.kind_of? Hash
         file = @file_server.call(env)
-        return file if file[0] == 200
+        return file if [200, 304].include?(file[0])
       end
       @app.call(env)
     end
